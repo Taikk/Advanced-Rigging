@@ -7,7 +7,7 @@ class Window:
 
     def delete(self):
         if cmds.window(self.my_window, exists=True):
-            cmds.deleteUI(self.my_window)
+            cmds.deleteUI(self.my_tswindow)
 
     def create(self):
         self.delete()
@@ -48,6 +48,10 @@ class Window:
                     label='Follow Attribute Constraint',
                     c=lambda *x: self.attributeConstrain())
 
+        cmds.button(parent=self.col_layout,
+                    label='Locator',
+                    c=lambda *x: self.locatorTool())
+
     def ranGenFunc(self):
         import RandGen
         reload(RandGen)
@@ -83,6 +87,12 @@ class Window:
         reload(FollowAttributeConstraints)
         instance = FollowAttributeConstraints.FollowAttributeConstraints()
         instance.Main()
+
+    def locatorTool(self):
+        import Locator
+        reload(Locator)
+        instance = Locator.create_locator()
+        instance.create()
 
 
 my_window = Window()
